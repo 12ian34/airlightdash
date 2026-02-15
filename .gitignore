@@ -1,0 +1,12 @@
+# SQLite databases
+*.db
+
+# Environment / secrets
+.env
+.env.*
+
+# Supabase
+supabase/.temp/
+
+# OS
+.DS_Store

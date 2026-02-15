@@ -1,0 +1,123 @@
+type: model
+name: airlab_readings
+label: Airlab Readings
+description: Air quality sensor readings — CO2, temperature, humidity, pressure, VOC, and NOx
+sql_from: public.airlab_readings
+primary_key: id
+
+default_time_dimension:
+  field: timestamp
+  interval: HOUR
+
+metrics:
+  reading_count:
+    type: count
+    sql: ${TABLE}.id
+    description: Total number of sensor readings
+
+  avg_co2:
+    type: average
+    sql: ${TABLE}.co2_ppm
+    label: Avg CO2 (ppm)
+    description: Average CO2 concentration in parts per million
+    round: 0
+
+  avg_temperature:
+    type: average
+    sql: ${TABLE}.temperature_c
+    label: Avg Temperature (°C)
+    description: Average temperature in degrees Celsius
+    round: 1
+
+  avg_humidity:
+    type: average
+    sql: ${TABLE}.humidity_percent
+    label: Avg Humidity (%)
+    description: Average relative humidity percentage
+    round: 1
+
+  max_co2:
+    type: max
+    sql: ${TABLE}.co2_ppm
+    label: Max CO2 (ppm)
+    description: Peak CO2 concentration
+    round: 0
+
+  min_temperature:
+    type: min
+    sql: ${TABLE}.temperature_c
+    label: Min Temperature (°C)
+    round: 1
+
+  max_temperature:
+    type: max
+    sql: ${TABLE}.temperature_c
+    label: Max Temperature (°C)
+    round: 1
+
+  avg_voc:
+    type: average
+    sql: ${TABLE}.voc_index
+    label: Avg VOC Index
+    description: Average volatile organic compounds index
+    round: 0
+
+dimensions:
+  - name: id
+    type: number
+    sql: ${TABLE}.id
+    hidden: true
+
+  - name: timestamp
+    type: timestamp
+    sql: ${TABLE}.timestamp
+    label: Timestamp
+    description: When the reading was taken
+    time_intervals:
+      - RAW
+      - HOUR
+      - DAY
+      - WEEK
+      - MONTH
+
+  - name: co2_ppm
+    type: number
+    sql: ${TABLE}.co2_ppm
+    label: CO2 (ppm)
+    description: CO2 concentration in parts per million
+    round: 0
+
+  - name: temperature_c
+    type: number
+    sql: ${TABLE}.temperature_c
+    label: Temperature (°C)
+    description: Temperature in degrees Celsius
+    round: 1
+
+  - name: humidity_percent
+    type: number
+    sql: ${TABLE}.humidity_percent
+    label: Humidity (%)
+    description: Relative humidity percentage
+    round: 1
+
+  - name: pressure_hpa
+    type: number
+    sql: ${TABLE}.pressure_hpa
+    label: Pressure (hPa)
+    description: Atmospheric pressure in hectopascals
+    round: 0
+
+  - name: voc_index
+    type: number
+    sql: ${TABLE}.voc_index
+    label: VOC Index
+    description: Volatile organic compounds index
+    round: 0
+
+  - name: nox_index
+    type: number
+    sql: ${TABLE}.nox_index
+    label: NOx Index
+    description: Nitrogen oxides index
+    round: 0
