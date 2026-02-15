@@ -191,6 +191,14 @@ lightdash lint
 
 If you see errors, fix them before deploying. Lint is fast — run it every time you edit YAML.
 
+> **After any model change** (adding columns, metrics, renaming things), you need to re-deploy:
+>
+> ```bash
+> lightdash deploy --no-warehouse-credentials
+> ```
+>
+> This pushes your updated model to Lightdash. Charts and dashboards reference model fields — if the model is stale, queries will fail. See step 7 for full deploy details.
+
 ---
 
 ## 6. Connect Lightdash to Supabase

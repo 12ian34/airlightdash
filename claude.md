@@ -20,6 +20,8 @@ Written by the Lightdash team — includes a "rough edges" section with internal
 ## Key files
 - `lightdash.config.yml` — declares warehouse type as postgres
 - `lightdash/models/airlab_readings.yml` — Lightdash YAML model (dimensions, metrics, time intervals)
+- `lightdash/charts/*.yml` — chart definitions (line, big_number, etc.)
+- `lightdash/dashboards/airlab-overview.yml` — dashboard layout referencing charts
 - `supabase/config.toml` — Supabase local config (project_id: airlightdash)
 - `supabase/migrations/20260215000000_create_airlab_readings.sql` — Postgres table DDL
 - `supabase/seed.sql` — 3,586 INSERT statements with NULL handling
@@ -29,11 +31,15 @@ Written by the Lightdash team — includes a "rough edges" section with internal
 ## Commands
 - `lightdash lint` — validate YAML models (fast, run constantly)
 - `lightdash deploy --create --no-warehouse-credentials` — first deploy, creates project
-- `lightdash deploy --no-warehouse-credentials` — subsequent deploys
+- `lightdash deploy --no-warehouse-credentials` — subsequent model deploys (dimensions, metrics, explores)
+- `lightdash upload --include-charts` — push charts and dashboards (use `--force` first time)
+- `lightdash upload --force -c chart-slug-1 chart-slug-2 --include-charts` — upload specific charts only
 - `lightdash install-skills` — install AI copilot rules for Lightdash YAML
 - `supabase link` — link to hosted Supabase project
 - `supabase db push` — push migrations to remote
 - `/opt/homebrew/opt/libpq/bin/psql "CONNECTION_STRING" -f supabase/seed.sql` — seed data
+
+**deploy vs upload:** `deploy` = model changes. `upload` = charts/dashboards. They're separate — you often need both after changes.
 
 ## Conventions
 - No dbt — Lightdash YAML exclusively (type: model, sql_from, dimensions, metrics)
@@ -57,8 +63,10 @@ Written by the Lightdash team — includes a "rough edges" section with internal
 - [x] Lightdash CLI skills installed
 - [x] Hackathon guide written with rough edges section
 - [x] Supabase project linked
-- [ ] Lightdash project deployed
-- [ ] Lightdash warehouse connection configured (shared pooler, no-verify SSL)
+- [x] Lightdash project deployed
+- [x] Lightdash warehouse connection configured (shared pooler, no-verify SSL)
+- [x] Charts and dashboard created and uploaded
+- [x] Fixed blank pressure/humidity charts (area→line, removed areaStyle)
 
 ## Gotchas discovered
 - Direct Supabase host doesn't resolve from Lightdash Cloud — use shared pooler

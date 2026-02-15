@@ -32,7 +32,7 @@ chartConfig:
       yAxis:
         - name: "Humidity (%)"
       series:
-        - type: "area"
+        - type: "line"
           encode:
             xRef:
               field: "airlab_readings_timestamp_minute"
@@ -41,8 +41,6 @@ chartConfig:
           name: "Avg Humidity"
           color: "#06b6d4"
           smooth: true
-          areaStyle:
-            opacity: 0.3
 
 tableConfig:
   columnOrder:
