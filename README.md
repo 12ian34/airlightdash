@@ -29,20 +29,6 @@ If you don't have one yet:
 
 However your app works — Supabase API, a script, CSV import via Table Editor, raw SQL — just make sure you have at least one table with data before moving on.
 
-Once you do, grab your table structure. You'll feed this to your AI copilot in step 5 to auto-generate your Lightdash model.
-
-1. Go to **SQL Editor** in the Supabase dashboard
-2. Run:
-
-```sql
-SELECT table_name, column_name, data_type
-FROM information_schema.columns
-WHERE table_schema = 'public'
-ORDER BY table_name, ordinal_position;
-```
-
-3. **Copy the output** and keep it handy
-
 ---
 
 ## 3. Sign up for Lightdash
@@ -99,7 +85,21 @@ warehouse:
 
 ### Generate your model with AI (the fast way)
 
-If you ran `lightdash install-skills` in step 4, your AI copilot already knows the Lightdash YAML format. Just paste the table structure you grabbed from Supabase and ask for a model.
+First, grab your table structure from Supabase:
+
+1. Go to **SQL Editor** in the Supabase dashboard
+2. Run:
+
+```sql
+SELECT table_name, column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'public'
+ORDER BY table_name, ordinal_position;
+```
+
+3. **Copy the output**
+
+If you ran `lightdash install-skills` in step 4, your AI copilot already knows the Lightdash YAML format. Paste the table structure and ask for a model.
 
 Example prompt:
 
