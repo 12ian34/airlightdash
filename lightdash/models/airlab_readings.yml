@@ -7,7 +7,7 @@ primary_key: id
 
 default_time_dimension:
   field: timestamp
-  interval: HOUR
+  interval: MINUTE
 
 metrics:
   reading_count:
@@ -55,11 +55,25 @@ metrics:
     label: Max Temperature (°C)
     round: 1
 
+  avg_pressure:
+    type: average
+    sql: ${TABLE}.pressure_hpa
+    label: Avg Pressure (hPa)
+    description: Average atmospheric pressure in hectopascals
+    round: 0
+
   avg_voc:
     type: average
     sql: ${TABLE}.voc_index
     label: Avg VOC Index
     description: Average volatile organic compounds index
+    round: 0
+
+  avg_nox:
+    type: average
+    sql: ${TABLE}.nox_index
+    label: Avg NOx Index
+    description: Average nitrogen oxides index
     round: 0
 
 dimensions:
@@ -75,6 +89,7 @@ dimensions:
     description: When the reading was taken
     time_intervals:
       - RAW
+      - MINUTE
       - HOUR
       - DAY
       - WEEK

@@ -1,0 +1,27 @@
+version: 1
+name: "Avg Humidity"
+slug: "kpi-avg-humidity"
+spaceSlug: "airlab"
+tableName: "airlab_readings"
+updatedAt: "2026-02-15T00:00:00.000Z"
+
+metricQuery:
+  exploreName: "airlab_readings"
+  dimensions: []
+  metrics:
+    - "airlab_readings_avg_humidity"
+  filters: {}
+  sorts: []
+  limit: 1
+  tableCalculations: []
+
+chartConfig:
+  type: "big_number"
+  config:
+    selectedField: "airlab_readings_avg_humidity"
+    label: "Avg Humidity (%)"
+    showBigNumberLabel: true
+
+tableConfig:
+  columnOrder:
+    - "airlab_readings_avg_humidity"

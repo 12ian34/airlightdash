@@ -1,0 +1,50 @@
+version: 1
+name: "Humidity Over Time"
+slug: "humidity-over-time"
+spaceSlug: "airlab"
+tableName: "airlab_readings"
+updatedAt: "2026-02-15T00:00:00.000Z"
+
+metricQuery:
+  exploreName: "airlab_readings"
+  dimensions:
+    - "airlab_readings_timestamp_minute"
+  metrics:
+    - "airlab_readings_avg_humidity"
+  filters: {}
+  sorts:
+    - fieldId: "airlab_readings_timestamp_minute"
+      descending: false
+  limit: 5000
+  tableCalculations: []
+
+chartConfig:
+  type: "cartesian"
+  config:
+    layout:
+      xField: "airlab_readings_timestamp_minute"
+      yField:
+        - "airlab_readings_avg_humidity"
+      showGridY: true
+    eChartsConfig:
+      xAxis:
+        - name: "Time"
+      yAxis:
+        - name: "Humidity (%)"
+      series:
+        - type: "area"
+          encode:
+            xRef:
+              field: "airlab_readings_timestamp_minute"
+            yRef:
+              field: "airlab_readings_avg_humidity"
+          name: "Avg Humidity"
+          color: "#06b6d4"
+          smooth: true
+          areaStyle:
+            opacity: 0.3
+
+tableConfig:
+  columnOrder:
+    - "airlab_readings_timestamp_minute"
+    - "airlab_readings_avg_humidity"

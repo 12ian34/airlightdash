@@ -1,0 +1,48 @@
+version: 1
+name: "VOC & NOx Over Time"
+slug: "voc-nox-over-time"
+spaceSlug: "airlab"
+tableName: "airlab_readings"
+updatedAt: "2026-02-15T00:00:00.000Z"
+
+metricQuery:
+  exploreName: "airlab_readings"
+  dimensions:
+    - "airlab_readings_timestamp_minute"
+  metrics:
+    - "airlab_readings_avg_voc"
+  filters: {}
+  sorts:
+    - fieldId: "airlab_readings_timestamp_minute"
+      descending: false
+  limit: 5000
+  tableCalculations: []
+
+chartConfig:
+  type: "cartesian"
+  config:
+    layout:
+      xField: "airlab_readings_timestamp_minute"
+      yField:
+        - "airlab_readings_avg_voc"
+      showGridY: true
+    eChartsConfig:
+      xAxis:
+        - name: "Time"
+      yAxis:
+        - name: "Index"
+      series:
+        - type: "line"
+          encode:
+            xRef:
+              field: "airlab_readings_timestamp_minute"
+            yRef:
+              field: "airlab_readings_avg_voc"
+          name: "VOC Index"
+          color: "#8b5cf6"
+          smooth: true
+
+tableConfig:
+  columnOrder:
+    - "airlab_readings_timestamp_minute"
+    - "airlab_readings_avg_voc"

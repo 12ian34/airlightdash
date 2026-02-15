@@ -254,15 +254,72 @@ lightdash deploy --no-warehouse-credentials
 
 ---
 
-## 8. Explore your data
+## 8. Create charts and dashboards as code
 
-Go to your Lightdash project in the browser. You should see your model in the sidebar — click into it and start exploring:
+Lightdash supports charts and dashboards as YAML files too — same workflow as models. You can build them in the UI and download them, or generate them with your AI copilot.
+
+### Generate charts with AI
+
+Your copilot already has the Lightdash chart and dashboard schemas loaded (from `lightdash install-skills`). Just tell it what you want:
+
+> Create a line chart showing average CO2 over time at minute resolution, using my airlab_readings model. Put it in `lightdash/charts/co2-over-time.yml`.
+
+Or for a dashboard:
+
+> Create a dashboard at `lightdash/dashboards/overview.yml` with KPI tiles for reading count, avg CO2, avg temperature, avg humidity across the top, then time series charts below for CO2, temperature, humidity, pressure, and VOC.
+
+Charts go in `lightdash/charts/` and dashboards go in `lightdash/dashboards/`.
+
+### Key things about chart YAML
+
+- **`tableName`** and **`metricQuery.exploreName`** — both should be your model name (e.g. `airlab_readings`)
+- **Field IDs** follow the pattern `modelname_fieldname` for dimensions/metrics, and `modelname_fieldname_interval` for time intervals (e.g. `airlab_readings_timestamp_minute`)
+- **`chartConfig.type`** — `cartesian` (line/bar/area), `big_number` (KPI), `pie`, `table`, `gauge`, `funnel`, etc.
+- **`tableConfig.columnOrder`** — required, list the field IDs used in the chart
+- **`spaceSlug`** — charts and dashboards in the same space slug are grouped together
+
+### Upload charts and dashboards
+
+This is a separate command from `lightdash deploy`:
+
+```bash
+# First time — use --force since files are new
+lightdash upload --force --include-charts
+
+# Subsequent uploads
+lightdash upload --include-charts
+```
+
+> **Important:** `lightdash deploy` pushes **model** changes (dimensions, metrics, explores). `lightdash upload` pushes **charts and dashboards**. They're separate commands — you'll often need to run both after making changes.
+
+### Project structure with charts and dashboards
+
+```
+your-project/
+├── lightdash.config.yml
+├── lightdash/
+│   ├── models/
+│   │   └── your_table.yml            # Model (dimensions, metrics)
+│   ├── charts/
+│   │   ├── kpi-total-readings.yml    # Big number KPI
+│   │   ├── co2-over-time.yml         # Line chart
+│   │   └── ...
+│   └── dashboards/
+│       └── overview.yml              # Dashboard referencing charts
+└── README.md
+```
+
+---
+
+## 9. Explore your data
+
+Go to your Lightdash project in the browser. You should see your model in the sidebar and your dashboard in the space you created — click in and start exploring:
 
 - Pick dimensions and metrics, hit **Run query**
-- Build charts and pin them to dashboards
+- Open your dashboard to see all charts at once
 - Try the **AI agent** — ask it questions about your data in plain English
 
-That's it. You've got a full semantic layer and BI tool running on top of Supabase, with no dbt in sight.
+That's it. Full semantic layer, charts, dashboards, and AI — running on Supabase, no dbt.
 
 ---
 
@@ -273,22 +330,7 @@ That's it. You've got a full semantic layer and BI tool running on top of Supaba
 - **Good descriptions = good AI** — `label` and `description` fields directly improve what Lightdash's AI agent can do
 - **Every metric needs `sql`** — even `count` types need `sql: ${TABLE}.column`
 - **Supabase SQL Editor** is great for quick data checks and schema grabs
-- **Subsequent deploys** don't need `--create`: just `lightdash deploy --no-warehouse-credentials`
-
----
-
-## Project structure
-
-```
-your-project/
-├── lightdash.config.yml          # Tells Lightdash you're using Postgres
-├── lightdash/
-│   └── models/
-│       └── your_table.yml        # Your Lightdash YAML model
-└── README.md
-```
-
-No dbt, no migrations, no build step. Just YAML and deploy.
+- **`deploy` vs `upload`** — `lightdash deploy` for models, `lightdash upload --include-charts` for charts/dashboards. You need both.
 
 ---
 

@@ -1,0 +1,27 @@
+version: 1
+name: "Avg Temperature"
+slug: "kpi-avg-temp"
+spaceSlug: "airlab"
+tableName: "airlab_readings"
+updatedAt: "2026-02-15T00:00:00.000Z"
+
+metricQuery:
+  exploreName: "airlab_readings"
+  dimensions: []
+  metrics:
+    - "airlab_readings_avg_temperature"
+  filters: {}
+  sorts: []
+  limit: 1
+  tableCalculations: []
+
+chartConfig:
+  type: "big_number"
+  config:
+    selectedField: "airlab_readings_avg_temperature"
+    label: "Avg Temperature (°C)"
+    showBigNumberLabel: true
+
+tableConfig:
+  columnOrder:
+    - "airlab_readings_avg_temperature"

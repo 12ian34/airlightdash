@@ -1,0 +1,72 @@
+version: 1
+name: "Temperature Over Time"
+slug: "temperature-over-time"
+spaceSlug: "airlab"
+tableName: "airlab_readings"
+updatedAt: "2026-02-15T00:00:00.000Z"
+
+metricQuery:
+  exploreName: "airlab_readings"
+  dimensions:
+    - "airlab_readings_timestamp_minute"
+  metrics:
+    - "airlab_readings_avg_temperature"
+    - "airlab_readings_min_temperature"
+    - "airlab_readings_max_temperature"
+  filters: {}
+  sorts:
+    - fieldId: "airlab_readings_timestamp_minute"
+      descending: false
+  limit: 5000
+  tableCalculations: []
+
+chartConfig:
+  type: "cartesian"
+  config:
+    layout:
+      xField: "airlab_readings_timestamp_minute"
+      yField:
+        - "airlab_readings_avg_temperature"
+        - "airlab_readings_min_temperature"
+        - "airlab_readings_max_temperature"
+      showGridY: true
+    eChartsConfig:
+      xAxis:
+        - name: "Time"
+      yAxis:
+        - name: "Temperature (°C)"
+      series:
+        - type: "line"
+          encode:
+            xRef:
+              field: "airlab_readings_timestamp_minute"
+            yRef:
+              field: "airlab_readings_avg_temperature"
+          name: "Avg"
+          color: "#f97316"
+          smooth: true
+        - type: "line"
+          encode:
+            xRef:
+              field: "airlab_readings_timestamp_minute"
+            yRef:
+              field: "airlab_readings_min_temperature"
+          name: "Min"
+          color: "#3b82f6"
+          smooth: true
+        - type: "line"
+          encode:
+            xRef:
+              field: "airlab_readings_timestamp_minute"
+            yRef:
+              field: "airlab_readings_max_temperature"
+          name: "Max"
+          color: "#ef4444"
+          smooth: true
+
+tableConfig:
+  columnOrder:
+    - "airlab_readings_timestamp_minute"
+    - "airlab_readings_avg_temperature"
+    - "airlab_readings_min_temperature"
+    - "airlab_readings_max_temperature"

@@ -1,0 +1,99 @@
+version: 1
+name: "Airlab Overview"
+slug: "airlab-overview"
+spaceSlug: "airlab"
+description: "Air quality monitoring dashboard — CO2, temperature, humidity, pressure, VOC, and NOx at minute resolution"
+updatedAt: "2026-02-15T00:00:00.000Z"
+
+tabs: []
+
+tiles:
+  # Row 0: KPIs across the top
+  - type: saved_chart
+    x: 0
+    y: 0
+    w: 9
+    h: 3
+    properties:
+      chartSlug: kpi-reading-count
+      title: "Total Readings"
+
+  - type: saved_chart
+    x: 9
+    y: 0
+    w: 9
+    h: 3
+    properties:
+      chartSlug: kpi-avg-co2
+      title: "Avg CO2 (ppm)"
+
+  - type: saved_chart
+    x: 18
+    y: 0
+    w: 9
+    h: 3
+    properties:
+      chartSlug: kpi-avg-temp
+      title: "Avg Temperature (°C)"
+
+  - type: saved_chart
+    x: 27
+    y: 0
+    w: 9
+    h: 3
+    properties:
+      chartSlug: kpi-avg-humidity
+      title: "Avg Humidity (%)"
+
+  # Row 1: CO2 — full width, the main event
+  - type: saved_chart
+    x: 0
+    y: 3
+    w: 36
+    h: 8
+    properties:
+      chartSlug: co2-over-time
+      title: "CO2 Over Time"
+
+  # Row 2: Temperature (left) + Humidity (right)
+  - type: saved_chart
+    x: 0
+    y: 11
+    w: 18
+    h: 7
+    properties:
+      chartSlug: temperature-over-time
+      title: "Temperature Over Time"
+
+  - type: saved_chart
+    x: 18
+    y: 11
+    w: 18
+    h: 7
+    properties:
+      chartSlug: humidity-over-time
+      title: "Humidity Over Time"
+
+  # Row 3: Pressure (left) + VOC & NOx (right)
+  - type: saved_chart
+    x: 0
+    y: 18
+    w: 18
+    h: 7
+    properties:
+      chartSlug: pressure-over-time
+      title: "Pressure Over Time"
+
+  - type: saved_chart
+    x: 18
+    y: 18
+    w: 18
+    h: 7
+    properties:
+      chartSlug: voc-nox-over-time
+      title: "VOC & NOx Over Time"
+
+filters:
+  dimensions: []
+  metrics: []
+  tableCalculations: []
