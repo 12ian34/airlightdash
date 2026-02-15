@@ -27,6 +27,7 @@ Written by the Lightdash team — includes a "rough edges" section with internal
 - `supabase/seed.sql` — 3,586 INSERT statements with NULL handling
 - `README.md` — hackathon guide + rough edges section
 - `.claude/skills/developing-in-lightdash/` — Lightdash reference docs installed via `lightdash install-skills`
+- `.cursor/skills/working-with-supabase/` — Supabase skill (CLI, migrations, seeding, Lightdash connection)
 
 ## Commands
 - `lightdash lint` — validate YAML models (fast, run constantly)
